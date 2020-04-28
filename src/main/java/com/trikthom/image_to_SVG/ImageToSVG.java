@@ -4,6 +4,7 @@ import com.trikthom.image_to_SVG.annotations.Required;
 import com.trikthom.image_to_SVG.classes.SVG;
 import com.trikthom.image_to_SVG.classes.Settings;
 import com.trikthom.image_to_SVG.classes.shapes.Circle;
+import com.trikthom.image_to_SVG.classes.shapes.Ellipse;
 import com.trikthom.image_to_SVG.classes.shapes.Rectangle;
 import com.trikthom.image_to_SVG.exceptions.MissingRequiredPropertiesException;
 
@@ -63,6 +64,7 @@ public class ImageToSVG {
         svg.append(new Circle());
         svg.append(new Circle(10, 10, 20, "black", 2, "#ffffaa"));
         svg.append(new Rectangle());
+        svg.append(new Ellipse());
         svg.save();
     }
 
