@@ -3,15 +3,10 @@ package com.trikthom.image_to_SVG;
 import com.trikthom.image_to_SVG.annotations.Required;
 import com.trikthom.image_to_SVG.classes.SVG;
 import com.trikthom.image_to_SVG.classes.Settings;
+import com.trikthom.image_to_SVG.classes.shapes.Circle;
 import com.trikthom.image_to_SVG.exceptions.MissingRequiredPropertiesException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,32 +35,33 @@ public class ImageToSVG {
         checkAttributes();
 
         System.out.println("Loaded Image to SVG");
-        System.out.println(filename);
+//        System.out.println(filename);
+//
+//        File file = new File(filename);
+//
+//        try {
+//            image = ImageIO.read(file);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        Color color = new Color(image.getRGB(0,0));
+//
+//        System.out.println(color.getRed() + " " + color.getGreen() + " " + color.getBlue());
 
-        File file = new File(filename);
-
-        try {
-            image = ImageIO.read(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        Color color = new Color(image.getRGB(0,0));
-
-        System.out.println(color.getRed() + " " + color.getGreen() + " " + color.getBlue());
-
-        createSVG();
+        createTestSVG();
     }
 
-    private void createSVG() {
-        try {
-            FileWriter myWriter = new FileWriter(filename.replace("png", "svg"));
-            new SVG(myWriter);
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    private void createTestSVG() {
+        SVG svg = new SVG(filename, 100, 100);
+        Circle circle = new Circle();
+        circle.setFill("#00feaa");
+        circle.setCy(0);
+        svg.append(circle);
+        svg.append(new Circle());
+        svg.append(new Circle(10, 10, 20, "black", 2, "#ffffaa"));
+        svg.save();
     }
 
     private void checkAttributes() {

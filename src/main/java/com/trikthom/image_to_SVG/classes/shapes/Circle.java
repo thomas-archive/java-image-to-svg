@@ -1,11 +1,10 @@
 package com.trikthom.image_to_SVG.classes.shapes;
 
+import com.trikthom.image_to_SVG.classes.Shape;
 import lombok.Setter;
 
-import java.awt.*;
-
 @Setter
-public class Circle {
+public class Circle extends Shape {
 
     private int cx;
     private int cy;
@@ -19,8 +18,17 @@ public class Circle {
         this.cy = 50;
         this.r = 10;
         this.stroke = "black";
-        this.strokeWidth = 3;
-        this.fill = "blue";
+        this.strokeWidth = 1;
+        this.fill = "white";
+    }
+
+    public Circle(Integer cx, Integer cy, Integer r, String stroke, Integer strokeWidth, String fill) {
+        this.cx = cx;
+        this.cy = cy;
+        this.r = r;
+        this.stroke = stroke;
+        this.strokeWidth = strokeWidth;
+        this.fill = fill;
     }
 
     @Override
