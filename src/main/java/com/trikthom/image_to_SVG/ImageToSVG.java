@@ -3,10 +3,7 @@ package com.trikthom.image_to_SVG;
 import com.trikthom.image_to_SVG.annotations.Required;
 import com.trikthom.image_to_SVG.classes.SVG;
 import com.trikthom.image_to_SVG.classes.Settings;
-import com.trikthom.image_to_SVG.classes.shapes.Circle;
-import com.trikthom.image_to_SVG.classes.shapes.Ellipse;
-import com.trikthom.image_to_SVG.classes.shapes.Line;
-import com.trikthom.image_to_SVG.classes.shapes.Rectangle;
+import com.trikthom.image_to_SVG.classes.shapes.*;
 import com.trikthom.image_to_SVG.exceptions.MissingRequiredPropertiesException;
 
 import java.awt.image.BufferedImage;
@@ -67,6 +64,8 @@ public class ImageToSVG {
         svg.append(new Rectangle());
         svg.append(new Ellipse());
         svg.append(new Line());
+        svg.append(new Polygon());
+        svg.append(new Polyline());
         svg.save();
     }
 

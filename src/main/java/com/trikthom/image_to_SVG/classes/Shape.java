@@ -25,7 +25,9 @@ public abstract class Shape {
                     String attribute = field.getDeclaredAnnotation(Attribute.class).value();
                     if (attribute.isEmpty()) attribute = field.getName();
 
-                    attributes.put(attribute, String.valueOf(field.get(this)));
+                    String value = String.valueOf(field.get(this));
+                    value = value.replace("[", "").replace("]", "");
+                    attributes.put(attribute, value);
 
                     field.setAccessible(false);
                 }
