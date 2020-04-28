@@ -1,6 +1,7 @@
 package com.trikthom.image_to_SVG;
 
 import com.trikthom.image_to_SVG.annotations.Required;
+import com.trikthom.image_to_SVG.classes.Group;
 import com.trikthom.image_to_SVG.classes.SVG;
 import com.trikthom.image_to_SVG.classes.Settings;
 import com.trikthom.image_to_SVG.classes.shapes.*;
@@ -8,6 +9,7 @@ import com.trikthom.image_to_SVG.exceptions.MissingRequiredPropertiesException;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImageToSVG {
@@ -60,11 +62,14 @@ public class ImageToSVG {
         circle.setCy(0);
         svg.append(circle);
         svg.append(new Circle());
+        Group group = new Group(Arrays.asList(
+                new Ellipse(),
+                new Line(),
+                new Polygon()
+        ));
+        svg.append(group);
         svg.append(new Circle(10, 10, 20, "black", 2, "#ffffaa"));
         svg.append(new Rectangle());
-        svg.append(new Ellipse());
-        svg.append(new Line());
-        svg.append(new Polygon());
         svg.append(new Polyline());
         svg.save();
     }

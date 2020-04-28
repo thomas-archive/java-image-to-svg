@@ -10,7 +10,7 @@ public class SVG {
     private FileWriter fileWriter;
     private final int width;
     private final int height;
-    private final List<Shape> shapes = new ArrayList<>();
+    private final List<Object> elements = new ArrayList<>();
 
     public SVG(String filename, Integer width, Integer height) {
         this.width = width;
@@ -23,7 +23,11 @@ public class SVG {
     }
 
     public void append(Shape shape) {
-        shapes.add(shape);
+        elements.add(shape);
+    }
+
+    public void append(Group group) {
+        elements.add(group);
     }
 
     public void save() {
@@ -31,7 +35,7 @@ public class SVG {
             String pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " + height + " " + width + "\">\n";
             fileWriter.write(pre);
 
-            for (Shape shape : shapes) if (shape.getClass() != Shape.class) fileWriter.append('\t').append(shape.toString()).append('\n');
+            for (Object element : elements) fileWriter.append('\t').append(element.toString()).append('\n');
 
             String post = "</svg>";
             fileWriter.append(post);
