@@ -7,24 +7,22 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Circle extends Shape {
+public class Rectangle extends Shape {
 
-    private @Attribute int cx;
-    private @Attribute int cy;
-    private @Attribute int r;
+    private @Attribute int width;
+    private @Attribute int height;
     private @Attribute String stroke;
     private @Attribute("stroke-width") int strokeWidth;
     private @Attribute String fill;
 
-    public Circle() {
-        this(50, 50, 10, "black", 1, "white");
+    public Rectangle() {
+        this(50, 20, "black", 1, "white");
     }
 
-    public Circle(Integer cx, Integer cy, Integer r, String stroke, Integer strokeWidth, String fill) {
-        super("circle");
-        this.cx = cx;
-        this.cy = cy;
-        this.r = r;
+    public Rectangle(Integer width, Integer height, String stroke, Integer strokeWidth, String fill) {
+        super("rect");
+        this.width = width;
+        this.height = height;
         this.stroke = stroke;
         this.strokeWidth = strokeWidth;
         this.fill = fill;
