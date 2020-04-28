@@ -6,7 +6,7 @@
 
     <groupId>com.trikthom.java</groupId>
     <artifactId>image-to-svg</artifactId>
-    <version>1.0</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>com.trikthom.image_to_SVG.ImageToSVG</name>
