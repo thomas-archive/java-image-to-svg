@@ -1,20 +1,16 @@
-
-name: Deploy Maven Package
-
+name: Publish package to GitHub Packages
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+  release:
+    types: [created]
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Deploy to GitHub
-      run: mvn deploy --file pom.xml
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Publish package
+        run: mvn -B deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
