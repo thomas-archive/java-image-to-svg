@@ -1,5 +1,7 @@
 package com.trikthom.image_to_SVG.classes;
 
+import lombok.Getter;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,13 +12,16 @@ public class SVG {
     private FileWriter fileWriter;
     private final int width;
     private final int height;
+    @Getter
+    private final String name;
     private final List<Object> elements = new ArrayList<>();
 
     public SVG(String filename, Integer width, Integer height) {
         this.width = width;
         this.height = height;
+        this.name = filename.substring(0, filename.lastIndexOf('.')) + ".svg";
         try {
-            fileWriter = new FileWriter(filename.substring(0, filename.lastIndexOf('.')) + ".svg");
+            fileWriter = new FileWriter(name);
         } catch (IOException e) {
             e.printStackTrace();
         }

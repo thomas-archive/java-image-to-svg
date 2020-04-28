@@ -1,15 +1,19 @@
 package com.trikthom.image_to_SVG;
 
 import com.trikthom.image_to_SVG.annotations.Required;
-import com.trikthom.image_to_SVG.classes.Group;
 import com.trikthom.image_to_SVG.classes.SVG;
 import com.trikthom.image_to_SVG.classes.Settings;
-import com.trikthom.image_to_SVG.classes.shapes.*;
 import com.trikthom.image_to_SVG.exceptions.MissingRequiredPropertiesException;
+import com.trikthom.image_to_SVG.processing.BlackAndWhite;
+import com.trikthom.image_to_SVG.processing.Contrast;
+import com.trikthom.image_to_SVG.processing.Noise;
+import com.trikthom.image_to_SVG.processing.TransparantToWhite;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ImageToSVG {
@@ -17,12 +21,15 @@ public class ImageToSVG {
     private final @Required String filename;
     private final Settings settings;
     private BufferedImage image;
+    private SVG svg;
 
     public static void main(String[] args) {
 
         String filename = args.length >= 1 ? args[0] : null;
 
         ImageToSVG imageToSVG = new ImageToSVG(filename);
+        imageToSVG.generate();
+        imageToSVG.save();
 
     }
 
@@ -37,39 +44,48 @@ public class ImageToSVG {
         checkAttributes();
 
         System.out.println("Loaded Image to SVG");
-//        System.out.println(filename);
-//
-//        File file = new File(filename);
-//
-//        try {
-//            image = ImageIO.read(file);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        Color color = new Color(image.getRGB(0,0));
-//
-//        System.out.println(color.getRed() + " " + color.getGreen() + " " + color.getBlue());
 
-        createTestSVG();
+        try {
+            File file = new File(filename);
+            image = ImageIO.read(file);
+            System.out.println("Image " + file.getName() + " successfully loaded");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void createTestSVG() {
-        SVG svg = new SVG(filename, 100, 100);
-        Circle circle = new Circle();
-        circle.setFill("#00feaa");
-        circle.setCy(0);
-        svg.append(circle);
-        svg.append(new Circle());
-        Group group = new Group(Arrays.asList(
-                new Ellipse(),
-                new Line(),
-                new Polygon(),
-                new Path()
-        ));
-        svg.append(group);
-        svg.append(new Path());
+    public void generate() {
+        processImage();
+        svg = new SVG(filename, image.getHeight(), image.getWidth());
+        System.out.println("Generating " + svg.getName());
+        long start = System.currentTimeMillis();
+
+        long time = System.currentTimeMillis() - start;
+
+        // temporary
+        try {
+            ImageIO.write(image, "png", new File("./a.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("SVG generated in " + time + "ms.");
+    }
+
+    public void processImage() {
+        System.out.println("Processing image...");
+        long start = System.currentTimeMillis();
+
+        image = BlackAndWhite.generate(Contrast.generate(TransparantToWhite.generate(image), 1.8f));
+        image = Noise.generate(image);
+
+        long time = System.currentTimeMillis() - start;
+
+        System.out.println("Image processed in " + time + "ms.");
+    }
+
+    public void save() {
         svg.save();
     }
 
