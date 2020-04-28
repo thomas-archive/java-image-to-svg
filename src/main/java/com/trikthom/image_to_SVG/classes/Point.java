@@ -7,16 +7,18 @@ import lombok.Setter;
 @Setter
 public class Point {
 
-    private int x;
-    private int y;
+    private Integer[] values;
 
-    public Point(Integer x, Integer y) {
-        this.x = x;
-        this.y = y;
+    public Point(Integer ...value) {
+        this.values = value;
     }
 
     @Override
     public String toString() {
-        return x + "," + y;
+        StringBuilder output = new StringBuilder("");
+        for (Integer value : values) {
+            output.append(value).append(" ");
+        }
+        return output.toString().trim();
     }
 }

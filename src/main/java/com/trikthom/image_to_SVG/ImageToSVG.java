@@ -65,12 +65,11 @@ public class ImageToSVG {
         Group group = new Group(Arrays.asList(
                 new Ellipse(),
                 new Line(),
-                new Polygon()
+                new Polygon(),
+                new Path()
         ));
         svg.append(group);
-        svg.append(new Circle(10, 10, 20, "black", 2, "#ffffaa"));
-        svg.append(new Rectangle());
-        svg.append(new Polyline());
+        svg.append(new Path());
         svg.save();
     }
 
