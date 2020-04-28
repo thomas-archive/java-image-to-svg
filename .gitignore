@@ -2,5 +2,5 @@
 *.iml
 .DS_Store
 target
-test.png
-test.svg
+*.png
+*.svg
